@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Library Management System</title>
+</head>
+<body>
+  <h1>Library Management System</h1>
+
+  <form id="customerForm">
+    <h2>Add a Customer</h2>
+    <p>
+      <label for="customerName">Name:</label>
+      <input type="text" id="customerName" required />
+    </p>
+    <p>
+      <label for="customerEmail">Email:</label>
+      <input type="email" id="customerEmail" required />
+    </p>
+    <p>
+      <button type="submit">Add Customer</button>
+    </p>
+  </form>
+
+  <br>
+
+  <form id="bookForm">
+    <h2>Add a Book</h2>
+    <p>
+      <label for="bookTitle">Title:</label>
+      <input type="text" id="bookTitle" required />
+    </p>
+    <p>
+      <label for="bookAuthor">Author:</label>
+      <input type="text" id="bookAuthor" required />
+    </p>
+    <p>
+      <button type="submit">Add Book</button>
+    </p>
+  </form>
+
+
+  <h2>Book List</h2>
+  <ul id="bookList"></ul>
+
+  <h2>Customer List</h2>
+  <ul id="customerList"></ul>
+
+  <script src="script.js"></script>
+</body>
+</html>
