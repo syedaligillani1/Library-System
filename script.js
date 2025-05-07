@@ -1,30 +1,7 @@
-class Book 
- {
-  constructor(id, title, author) 
-  {
-    this.id = id;
-    this.title = title;
-    this.author = author;
-  }
-
-  describe() 
-  {
-    return `"${this.title}" by ${this.author}`;
-  }
-}
-
-class Customer 
-{
-  constructor(id, name, email) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-  }
-
-  describe() {
-    return ` ${this.name}`;
-  }
-}
+import { Book } from "./classes/book.js";
+import { Customer } from "./classes/customer.js";
+import { renderBooks } from "./ui/renderBooks.js";
+import { renderCustomers } from "./ui/renderCustomers.js";
 
 let books = [];
 let customers = [];
@@ -39,7 +16,7 @@ document.getElementById("bookForm").addEventListener("submit", function (e) { e.
 
   const newBook = new Book(bookID++, title, author);
   books.push(newBook);
-  renderBooks();
+  renderBooks(books, deleteBook, editBook);
   this.reset();
 });
 
@@ -50,65 +27,43 @@ document.getElementById("customerForm").addEventListener("submit", function (e) 
 
   const newCustomer = new Customer(customerID++, name, email);
   customers.push(newCustomer);
-  renderCustomers();
+  renderCustomers(customers, deleteCustomer, editCustomer);
   this.reset();
 });
 
 
-function renderBooks() {
-  const list = document.getElementById("bookList");
-  list.innerHTML = "";
-  books.forEach((book, index) => {
-    const li = document.createElement("li");
-    li.textContent = book.describe();
-    list.appendChild(li);
-    const DeleteButton = document.createElement('button');
-    DeleteButton.textContent = 'Delete';
-    DeleteButton.onclick = function () {
-      books.splice(index, 1); 
-      renderBooks(); 
-    }
-    list.appendChild(DeleteButton);
-    const EditButton = document.createElement('button');
-    EditButton.textContent = 'Edit';
-    EditButton.onclick = function () {
+function editBook(index){
 
-      document.getElementById("bookTitle").value = book.title;
-      document.getElementById("bookAuthor").value = book.author;
+  const book = books[index]
+  document.getElementById("bookTitle").value = book.title;
+  document.getElementById("bookAuthor").value = book.author;
 
-      books.splice(index, 1); 
-      renderBooks(); 
-    }
-    list.appendChild(EditButton);
-  });
+  books.splice(index, 1); 
+  renderBooks(books, deleteBook, editBook);
 }
 
-function renderCustomers() {
-  const list = document.getElementById("customerList");
-  list.innerHTML = "";
-  customers.forEach((customer,index) => {
-    const li = document.createElement("li");
-    li.textContent = customer.describe();
-    list.appendChild(li);
-    const DeleteButton = document.createElement('button');
-    DeleteButton.textContent = 'Delete';
-    DeleteButton.onclick = function () {
-      customers.splice(index, 1); 
-      renderCustomers(); 
-    }
-    list.appendChild(DeleteButton);
-    const EditButton = document.createElement('button');
-    EditButton.textContent = 'Edit';
-    EditButton.onclick = function () {
+function editCustomer(index){
 
-      document.getElementById("customerName").value = customer.name;
-      document.getElementById("customerEmail").value = customer.email;
+  const customer = customers[index]
+  document.getElementById("customerName").value = customer.name;
+  document.getElementById("customerEmail").value = customer.email;
 
-      customers.splice(index, 1); 
-      renderCustomers(); 
-
-    }
-    list.appendChild(EditButton);
-  });
+  customers.splice(index, 1); 
+  renderCustomers(customers, deleteCustomer, editCustomer);
 }
+
+function deleteBook(index){
+
+  const book = books[index]
+  books.splice(index, 1); 
+  renderBooks(books, deleteBook, editBook);
+}
+
+function deleteCustomer(index){
+
+  const customer = customers[index]
+  customers.splice(index, 1); 
+  renderCustomers(customers, deleteCustomer, editCustomer);
+}
+
 
